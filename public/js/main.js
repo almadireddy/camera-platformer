@@ -12,8 +12,8 @@ socket.on('newFrameContents', (contents) => {
 
 let config = {
   type: Phaser.CANVAS,
-  width: 1280,
-  height: 720,
+  width: DISPLAY_WIDTH,
+  height: DISPLAY_HEIGHT,
   parent: "phaser",
   physics: {
     default: 'arcade',
@@ -32,6 +32,7 @@ let config = {
   dom: {
     createContainer: true
   },
+  backgroundColor: 0xffffff
 };
 
 let game = new Phaser.Game(config);
