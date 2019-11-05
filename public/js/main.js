@@ -1,6 +1,6 @@
 let socket = io.connect("http://localhost:8080");
 let platforms = [];
-let videoPreview = false;
+let videoPreview = true;
 
 const PLATFORM_SIZE = 12;
 const DISPLAY_WIDTH = 1280;
@@ -43,7 +43,7 @@ function preload() {
 }
 
 let ground, width, height, polygon, centroid, rect, angle, ball;
-let videoContainer;
+let videoContainer, video;
 let cursors;
 
 function create() {
@@ -66,30 +66,36 @@ function create() {
   ball.setScale(64/2048);
   ball.setBounce(0.3);
   ball.setCollideWorldBounds(true);
-  ball.body.setGravityY(300)
+  ball.body.setGravityY(500)
 
   this.physics.add.collider(ball, ground);
 
   cursors = this.input.keyboard.createCursorKeys();
 
   if (videoPreview) {
-    videoContainer = this.add.dom(0, 0, 'video');
-    videoContainer.setOrigin(0, 0);
+    videoContainer = this.add.dom(0, 0, 'video', 'width: 1280px; height: 720px');
+    videoContainer.setPosition(640, 360);
+    videoContainer.rotate3dAngle = 180;
     videoContainer.setAlpha(0.25);
 
-    let video = document.querySelector("video");
+    video = document.querySelector("video");
     video.autoplay = true;
 
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({
-          video: true
-        })
-        .then(function (stream) {
+        video: true,
+      })
+      .then(function (stream) {
+        stream.getTracks()[0].applyConstraints({
+          width: 1280,
+          height: 720
+        }).then((s) => {
           video.srcObject = stream;
         })
-        .catch(function (err0r) {
-          console.log("Something went wrong!");
-        });
+      })
+      .catch(function (error) {
+        console.log("Something went wrong!", error);
+      });
     }
   }
 }
@@ -125,6 +131,6 @@ function update() {
     ball.setVelocityX(0);
   }
   if (cursors.up.isDown) {
-    ball.setVelocityY(-330);
+    ball.setVelocityY(-500);
   }
 }

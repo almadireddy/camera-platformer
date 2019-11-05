@@ -13,48 +13,56 @@ app.get('/phaser/phaser.js', function (req, res) {
 });
 
 // Hue Saturation Value
-const blueLower = [80, 110, 100];
+const blueLower = [80, 110, 80];
 const blueUpper = [220, 256, 256];
-
 const MIN_PLATFORM_AREA = 700;
+
+const VIDEO_PREVIEW = false;
+const ORIGINAL_VIDEO = false;
+
+let window, output;
 
 try {
   let camera = new cv.VideoCapture(0);
+  if (VIDEO_PREVIEW) {
+    window = new cv.NamedWindow('OpenCV Mask', 0);
+  }
 
   function processFrame() {
     camera.read((err, im) => {
       if (err) {
         throw err;
       }
-      
+
       im = im.flip(1);
+      if (ORIGINAL_VIDEO) {
+        output = im.copy();  
+      }
+
       im.convertHSVscale();
       im.inRange(blueLower, blueUpper);
       let verticalStructure = cv.imgproc.getStructuringElement(1, [1, 5]);
       im.erode(1, verticalStructure);
-
+      
       let platforms = [];
       let contours = im.findContours();
+
+      if (VIDEO_PREVIEW) {
+        if (ORIGINAL_VIDEO) window.show(output)
+        else window.show(im)
+        window.blockingWaitKey(0, 50);
+      }
 
       for (let i = 0; i < contours.size(); i++) {
         if (contours.area(i) < MIN_PLATFORM_AREA) {
           continue;
         }
 
-        let rect = contours.minAreaRect(i);
-        let angle = 0;
-
-        if (rect.size.width < rect.size.height) {
-          angle = rect.angle + 180;
-        } else {
-          angle = rect.angle;
-        }
+        let arcLength = contours.arcLength(i, false);
+        contours.approxPolyDP(i, 0.03 * arcLength, true)
 
         platforms.push({
-          height: rect.size.height,
-          width: rect.size.width,
-          points: rect.points,
-          angle: angle
+          points: contours.points(i),
         })
       }
 
