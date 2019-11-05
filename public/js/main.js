@@ -1,6 +1,6 @@
 let socket = io.connect("http://localhost:8080");
 let platforms = [];
-let videoPreview = true;
+let videoPreview = false;
 
 const PLATFORM_SIZE = 12;
 const DISPLAY_WIDTH = 1280;
