@@ -13,8 +13,8 @@ app.get('/phaser/phaser.js', function (req, res) {
 });
 
 // Hue Saturation Value
-const blueLower = [80, 110, 80];
-const blueUpper = [220, 256, 256];
+const blueLower = [80, 50, 50];
+const blueUpper = [245, 256, 256];
 const MIN_PLATFORM_AREA = 700;
 
 const VIDEO_PREVIEW = false;

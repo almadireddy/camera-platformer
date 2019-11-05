@@ -75,7 +75,7 @@ function create() {
   if (videoPreview) {
     videoContainer = this.add.dom(0, 0, 'video', 'width: 1280px; height: 720px');
     videoContainer.setPosition(640, 360);
-    videoContainer.rotate3dAngle = 180;
+    videoContainer.rotate3dAngle = -180;
     videoContainer.setAlpha(0.25);
 
     video = document.querySelector("video");
