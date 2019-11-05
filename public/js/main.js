@@ -2,7 +2,7 @@ let socket = io.connect("http://localhost:8080");
 let platforms = [];
 let videoPreview = false;
 
-const PLATFORM_SIZE = 12;
+const PLATFORM_SIZE = 10;
 const DISPLAY_WIDTH = 1280;
 const DISPLAY_HEIGHT = 720;
 
