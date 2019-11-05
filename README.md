@@ -22,7 +22,9 @@ Steps:
 
 1. Clone this repository
 2. Run `yarn` to install all the dependencies
-3. Run `node app.js` to start the server. You'll be able to access the frontend at `localhost:8080`
+3. Run `yarn start` to start the server. You'll be able to access the frontend at `localhost:8080`
 4. Allow the webcam access both in the system dialog for the backend and in the browser permissions dialog for the frontend. 
 5. Draw solid blue shapes on paper and hold it up for the camera to see
 6. Mess with `app.js` and `pubic/js/main.js` to do cool things
+
+Note: use `yarn dev` to start the server with `nodemon` which will automatically reload the server when it detects changes to the Javascript. (You need to have nodemon installed globally)
