@@ -60,7 +60,6 @@ try {
 
         let arcLength = contours.arcLength(i, false);
         contours.approxPolyDP(i, 0.02 * arcLength, true)
-        let rect = contours.minAreaRect(i);
 
         platforms.push({
           points: contours.points(i),

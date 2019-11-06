@@ -14,6 +14,10 @@ The express server uses OpenCV to recognize blue shapes and sends that info over
 
 - Docs for the Phaser game engine, which is running the physics and character control on the frontend
 
+[Info about contours](https://docs.opencv.org/3.4/dd/d49/tutorial_py_contour_features.html)
+
+- Some info on how contours work
+
 ## Run on your machine
 
 Make sure you have node installed.

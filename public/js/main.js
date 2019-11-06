@@ -2,6 +2,7 @@ let socket = io.connect("http://localhost:8080");
 let platforms = [];
 let videoPreview = false;
 
+const DEBUG = false;
 const PLATFORM_SIZE = 10;
 const DISPLAY_WIDTH = 1280;
 const DISPLAY_HEIGHT = 720;
@@ -39,7 +40,11 @@ let game = new Phaser.Game(config);
 
 function preload() {
   this.load.image('ball', './images/mario.png');
-  this.load.image('square', './images/square.png');
+  if (DEBUG) {
+    this.load.image('square', './images/square_green.png');
+  } else {
+    this.load.image('square', './images/square.png');
+  }
 }
 
 let ground, width, height, polygon, centroid, rect, angle, ball;
@@ -55,10 +60,10 @@ function create() {
       x = i * PLATFORM_SIZE;
       y = j * PLATFORM_SIZE;
 
-      z = ground.create(x, y, "square")
+      z = ground.create(1280-x, y, "square")
         .setScale(PLATFORM_SIZE/32.0).refreshBody();
 
-      z.setData({x: x, y: y})
+      z.setData({x: 1280-x, y: y})
     }
   }
 
@@ -105,13 +110,11 @@ function update() {
     let visible = false;
 
     for (const p of platforms) {
-      width = p.width;
-      height = p.height;
       polygon = p.points;
   
       region = new Region(polygon);
    
-      if (region.contains({x: c.x, y: c.y})) {
+      if (region.contains({x: 1280-c.x, y: c.y})) {
         visible = true;
       }
     }
