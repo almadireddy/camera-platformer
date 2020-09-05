@@ -4,6 +4,8 @@ A small experiment with creating and playing on a platformer level by drawing th
 
 The express server uses OpenCV to recognize blue shapes and sends that info over to the frontend via websockets. The frontend uses that info to display platforms for the player to land on and interact with. 
 
+A video demo [here.](https://www.linkedin.com/posts/almadireddy_what-if-you-could-draw-shapes-and-platforms-activity-6598268687914975232-hG_6)
+
 ## Relevant Links
 
 [node-opencv](https://www.npmjs.com/package/opencv)
