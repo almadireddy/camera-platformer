@@ -2,7 +2,7 @@ let socket = io.connect("http://localhost:8080");
 let platforms = [];
 let videoPreview = false;
 
-const DEBUG = false;
+const DEBUG = true;
 const PLATFORM_SIZE = 10;
 const DISPLAY_WIDTH = 1280;
 const DISPLAY_HEIGHT = 720;
@@ -60,10 +60,12 @@ function create() {
       x = i * PLATFORM_SIZE;
       y = j * PLATFORM_SIZE;
 
-      z = ground.create(1280-x, y, "square")
+      // z = ground.create(/-x, y, "square")
+      z = ground.create(x, y, "square")
         .setScale(PLATFORM_SIZE/32.0).refreshBody();
 
-      z.setData({x: 1280-x, y: y})
+      // z.setData({x: 1280-x, y: y})
+      z.setData({x: x, y: y})
     }
   }
 
@@ -114,7 +116,8 @@ function update() {
   
       region = new Region(polygon);
    
-      if (region.contains({x: 1280-c.x, y: c.y})) {
+      // if (region.contains({x: 1280-c.x, y: c.y})) {
+      if (region.contains({x: c.x, y: c.y})) {
         visible = true;
       }
     }
